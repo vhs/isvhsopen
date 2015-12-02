@@ -1,12 +1,11 @@
 'use strict';
-/** @jsx React.DOM */
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var request = require('superagent');
 var moment = require('moment');
 
-export class EventCalendar extends React.Component {
+export default class EventCalendar extends React.Component {
 
     constructor(props) {
         super(props);

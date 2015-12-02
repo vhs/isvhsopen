@@ -17,6 +17,18 @@ gulp.task('test', function () {
         .pipe(mocha({reporter: 'nyan'}));
 });
 
+gulp.task('build', function () {
+    browserify({
+        entries: './app/main.jsx',
+        extensions: ['.jsx'],
+        debug: true
+    })
+        .transform(babelify, {presets: [ require('babel-preset-es2015'), require('babel-preset-react')]})
+        .bundle()
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('dist'));
+});
+
 // add custom browserify options here
 var customOpts = {
     entries: ['./app/main.js'],
@@ -25,7 +37,7 @@ var customOpts = {
 
 var opts = assign({}, watchify.args, customOpts);
 var b = watchify(browserify(opts));
-b.transform("babelify");
+b.transform("babelify", {presets: ["react"]});
 
 // add transformations here
 // i.e. b.transform(coffeeify);
