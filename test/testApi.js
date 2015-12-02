@@ -18,8 +18,9 @@ describe('isvhsopen api test', function () {
     it("should return the current status of closed", function(){
         return request(app)
             .get("/api/status")
-            .expect(200, {
-                status: "closed"
+            .expect(200)
+            .then(function(res) {
+                res.body.should.have.property("status", "closed");
             });
     });
 

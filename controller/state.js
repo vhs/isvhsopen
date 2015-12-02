@@ -18,7 +18,7 @@ State.prototype.setClosed = function() {
     if (this.openUntil) {
         delete this.openUntil;
     }
-    return this.setStatus("closed")
+    return this.setStatus("closed");
 };
 
 State.prototype.setStatus = function(newStatus) {

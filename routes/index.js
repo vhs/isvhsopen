@@ -3,6 +3,7 @@ var express = require('express'),
     router = express.Router(),
     stateController = require('../controller/state'),
     moment = require('moment'),
+    request = require('superagent'),
     hbs = require('hbs');
 
 hbs.registerHelper('toLower', function(str) {
@@ -15,18 +16,22 @@ hbs.registerHelper('fromNow', function(dt) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    stateController.currentState().then(function(state) {
-        var context = {
-            last: state.last
-        };
-        if (state.status === "open") {
-            context.status = "Open";
-        } else {
-            context.status = "Closed";
-        };
-        res.render('index', context);
-    })
-        .catch(next);
+    //Temporary until we switch the door over.
+    request.get('http://api.hackspace.ca/s/vhs/data/door.json')
+        .end(function(err, api) {
+            if (err) {
+                return next(err);
+            }
+            var context = {
+                last: new Date(api.body.last_updated * 1000)
+            };
+            if (api.body.value === "open") {
+                context.status = "Open";
+            } else {
+                context.status = "Closed";
+            }
+            res.render('index', context);
+        });
 });
 
 module.exports = router;
