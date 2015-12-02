@@ -1,10 +1,16 @@
-var express = require('express');
-var router = express.Router();
-var stateController = require('../controller/state');
-var hbs = require('hbs');
+'use strict';
+var express = require('express'),
+    router = express.Router(),
+    stateController = require('../controller/state'),
+    moment = require('moment'),
+    hbs = require('hbs');
 
 hbs.registerHelper('toLower', function(str) {
     return str.toLowerCase();
+});
+
+hbs.registerHelper('fromNow', function(dt) {
+    return moment().from(dt, true);
 });
 
 /* GET home page. */
