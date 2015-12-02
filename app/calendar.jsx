@@ -4,6 +4,7 @@ import React from 'react';
 
 var request = require('superagent');
 var moment = require('moment');
+var Autolinker = require( 'autolinker' );
 
 export default class EventCalendar extends React.Component {
 
@@ -107,12 +108,12 @@ class EventDetail extends React.Component {
     render() {
         var event = this.props.event;
         var start = event.start.dateTime;
-
+        var description = {__html:Autolinker.link(event.description).replace(/\n/g, "<br />")};
         return (
 
             <li className="list-group-item">
                 <h4 className="list-group-item-heading">{moment(start).format("LT")} - {this.props.event.summary}</h4>
-                <p className="list-group-item-text">{this.props.event.description}</p>
+                <p className="list-group-item-text" dangerouslySetInnerHTML={description}></p>
             </li>
         )
     }
