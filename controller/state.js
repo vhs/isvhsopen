@@ -4,6 +4,7 @@ var _current = null;
 
 function State() {
     this.status = "closed";
+    this.last = new Date();
 }
 
 State.prototype.setOpen = function(until) {
