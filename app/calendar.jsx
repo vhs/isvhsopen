@@ -77,7 +77,7 @@ export default class EventCalendar extends React.Component {
         });
         return (
             <div>
-                <h2>Upcoming at VHS?</h2>
+                <h2>Upcoming at VHS</h2>
                 {days}
             </div>
         );
