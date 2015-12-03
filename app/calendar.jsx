@@ -47,12 +47,14 @@ export default class EventCalendar extends React.Component {
     render() {
         var grouped = this.state.items.reduce(function(prev, current){
             var start = moment(current.start.dateTime);
+            var today = moment().startOf('day');
             var key = start.format("L");
+
             if (!prev[key]) {
                 prev[key] = {
                     start: start,
                     items: [current],
-                    daysFromToday: start.diff(new Date(), 'days')
+                    daysFromToday: start.diff(today, 'days')
                 };
                 prev.sorted.push(prev[key]);
             } else {
@@ -90,6 +92,7 @@ class EventsByDay extends React.Component {
             label = "Today";
         }
         if (this.props.day.daysFromToday === 1) {
+            classes += " panel-info";
             label = "Tomorrow";
         }
 
