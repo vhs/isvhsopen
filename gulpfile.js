@@ -9,6 +9,7 @@ var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var babelify = require('babelify');
+var sass = require('gulp-sass');
 
 gulp.task('test', function () {
     return gulp.src('test/*.js', {read: false})
@@ -48,6 +49,24 @@ function bundle(watch) {
     }
 }
 
+gulp.task('copy-fonts', function () {
+    return gulp.src('./node_modules/bootstrap-sass/assets/fonts/**/*')
+        .pipe(gulp.dest('dist/fonts'));
+});
+
+gulp.task('sass', function () {
+    gulp.src('./public/stylesheets/**.sass')
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('sass-watch', function () {
+    gulp.watch('./public/stylesheets/**.sass', ['sass']);
+});
+
 gulp.task('js', bundle(false));
-gulp.task('watch', bundle(true));
-gulp.task('build', ['js']);
+gulp.task('js-watch', bundle(true));
+gulp.task('watch', ['copy-fonts', 'sass', 'sass-watch', 'js-watch']);
+gulp.task('build', ['copy-fonts', 'sass']);

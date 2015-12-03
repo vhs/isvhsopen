@@ -46,7 +46,13 @@ export default class EventCalendar extends React.Component {
 
     render() {
         var grouped = this.state.items.reduce(function(prev, current){
-            var start = moment(current.start.dateTime);
+            var start;
+            if (current.start.date) {
+                //All-day event
+                start = moment(current.start.date);
+            } else {
+                start = moment(current.start.dateTime);
+            }
             var today = moment().startOf('day');
             var key = start.format("L");
 
@@ -71,7 +77,7 @@ export default class EventCalendar extends React.Component {
         });
         return (
             <div>
-                <h2>Events at VHS</h2>
+                <h2>Upcoming at VHS?</h2>
                 {days}
             </div>
         );
@@ -111,12 +117,16 @@ class EventDetail extends React.Component {
     render() {
         var event = this.props.event;
         var start = event.start.dateTime;
+        var time;
+        if (start) {
+            time = moment(start).format("h:mm a -");
+        }
         var description = {__html:Autolinker.link(event.description).replace(/\n/g, "<br />")};
         return (
 
             <li className="list-group-item">
-                <h4 className="list-group-item-heading">{moment(start).format("LT")} - {this.props.event.summary}</h4>
-                <p className="list-group-item-text" dangerouslySetInnerHTML={description}></p>
+                <h4 className="list-group-item-heading">{time} {this.props.event.summary}</h4>
+                <p className="list-group-item-text" dangerouslySetInnerHTML={description}/>
             </li>
         )
     }
