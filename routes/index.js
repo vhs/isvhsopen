@@ -23,9 +23,11 @@ router.get('/', function(req, res, next) {
                 return next(err);
             }
             var context = {
-                last: new Date(api.body.last_updated * 1000)
+                last: new Date(api.body.last_updated * 1000),
+                title: "Is VHS Open?"
             };
             if (api.body.value === "open") {
+                context.textClass = "text-success";
                 context.status = "Open";
             } else {
                 context.status = "Closed";
