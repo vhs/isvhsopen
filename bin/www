@@ -7,6 +7,7 @@
 var appPromise = require('../app');
 var debug = require('debug')('isvhsopen:server');
 var http = require('http');
+var slack = require('../controller/slack');
 
 appPromise.setup().then(function(app){
 
@@ -92,4 +93,5 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
+slack.setup();
 });
