@@ -33,7 +33,7 @@ var conf = convict({
         doc: "Influx Password",
         format: String,
         default: "",
-        env: "INFLUX_PW"
+        env: "INFLUX_PASSWORD"
     },
     influxDb: {
         doc: "Influx Database",

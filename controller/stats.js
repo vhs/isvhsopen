@@ -36,7 +36,7 @@ function getLastStatus() {
                 var result = results[0][0];
                 return resolve({
                     status: result.value,
-                    last: result.time
+                    last: new Date(result.time)
                 });
             }
             return resolve(unknown);
