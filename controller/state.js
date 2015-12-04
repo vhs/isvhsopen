@@ -42,6 +42,12 @@ State.prototype.setStatus = function(newStatus) {
     }
 };
 
+//Set the initial state, don't trigger events.
+State.prototype.init = function(initial){
+    this.status = initial.status;
+    this.last = initial.last;
+};
+
 module.exports.currentState = function () {
     if (!_current) {
         _current = new State();

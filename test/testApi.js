@@ -1,6 +1,7 @@
 'use strict';
 
 var request = require("supertest-as-promised"),
+    stateController = require("../controller/state.js"),
     appPromise = require("../app");
 
 require('chai').should();
@@ -15,12 +16,18 @@ describe('isvhsopen api test', function () {
         });
     });
 
+    after(function(){
+        return stateController.currentState().then(function(state){
+            state.removeAllListeners();
+        })
+    });
+
     it("should return the current status of closed", function(){
         return request(app)
             .get("/api/status")
             .expect(200)
             .then(function(res) {
-                res.body.should.have.property("status", "closed");
+                res.body.should.have.property("status", "unknown");
             });
     });
 

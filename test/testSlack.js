@@ -24,8 +24,7 @@ describe('isvhsopen slack test', function () {
         nock('http://mockslack')
             .post('/mock/webhook')
             .reply(function(uri, requestBody) {
-                var body = querystring.parse(requestBody);
-                var payload = JSON.parse(body.payload);
+                var payload = JSON.parse(requestBody);
                 cb(payload);
                 return [200];
             });
@@ -34,7 +33,7 @@ describe('isvhsopen slack test', function () {
     it("should alert slack when the space is open", function(done){
         this.timeout(1000);
         mockSlack(function(payload){
-            payload.should.have.property("text", "VHS is now open");
+            payload.should.have.property("text", "VHS is now <http://isvhsopen.com|open>");
             done();
         });
         state.setOpen();
@@ -43,7 +42,7 @@ describe('isvhsopen slack test', function () {
     it("should alert slack when the space is closed", function(done){
         this.timeout(1000);
         mockSlack(function(payload){
-            payload.should.have.property("text", "VHS is now closed");
+            payload.should.have.property("text", "VHS is now <http://isvhsopen.com|closed>");
             done();
         });
         state.setClosed();
