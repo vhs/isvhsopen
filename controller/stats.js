@@ -56,7 +56,7 @@ module.exports.setup = function() {
     _instance = Influx(options);
     var state;
     return stateController.currentState().then(function(s) {
-        state = s
+        state = s;
         state.on("change", function(event) {
             writeEvent(event).then(function(){
                 debug("Wrote changes to influx");

@@ -14,12 +14,17 @@ hbs.registerHelper('fromNow', function(dt) {
     return moment().from(dt, true);
 });
 
+hbs.registerHelper('time', function(dt) {
+    return moment(dt).format("h:mma");
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     //Temporary until we switch the door over.
+    var context;
     statsController.getLastStatus()
         .then(function(status){
-            var context = {
+            context = {
                 last: status.last,
                 title: "Is VHS Open?"
             };
@@ -28,6 +33,12 @@ router.get('/', function(req, res, next) {
                 context.status = "Open";
             } else {
                 context.status = "Closed";
+            }
+            return stateController.currentState();
+        })
+        .then(function(state){
+            if (state.openUntil && state.openUntil > moment()) {
+                context.openUntil = state.openUntil;
             }
             res.render('index', context);
         })

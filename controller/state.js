@@ -1,6 +1,7 @@
 'use strict';
 
-var EventEmitter = require('events').EventEmitter;
+var EventEmitter = require('events').EventEmitter,
+    moment = require('moment');
 
 var _current = null;
 
@@ -9,11 +10,25 @@ function State() {
     this.last = new Date();
 }
 
+var untilFormat = /[0-2]?\d:\d{2}/;
+
 State.prototype.__proto__ = EventEmitter.prototype;
 
 State.prototype.setOpen = function(until) {
     if (until) {
-        this.openUntil = until;
+        if (untilFormat.test(until)) {
+            var hourMin = until.split(":");
+            var hour = parseInt(hourMin);
+            this.openUntil = moment().set({
+                hour:hour,
+                minute:parseInt(hourMin[1]),
+                second: 0,
+                millisecond: 0
+            });
+            if (moment() > this.openUntil) {
+                this.openUntil.add(1, 'day');
+            }
+        }
     }
     if (until === "") {
         delete this.openUntil;
