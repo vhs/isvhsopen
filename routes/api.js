@@ -24,7 +24,8 @@ function changeStatus(status) {
             var result = {
                 result: "ok",
                 status: state.status,
-                last: state.last
+                last: state.last,
+                openUntil: state.openUntil
             };
             if (!changed) {
                 result.noChanges = true;

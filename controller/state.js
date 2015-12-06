@@ -15,6 +15,9 @@ State.prototype.setOpen = function(until) {
     if (until) {
         this.openUntil = until;
     }
+    if (until === "") {
+        delete this.openUntil;
+    }
     return this.setStatus("open");
 };
 
