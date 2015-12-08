@@ -10,6 +10,7 @@ COPY . /usr/src/app
 RUN node_modules/.bin/gulp build
 
 ENV DEBUG=isvhsopen:*
+ENV TZ=America/Vancouver
 CMD [ "npm", "start" ]
 
 EXPOSE 3001
