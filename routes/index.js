@@ -20,23 +20,19 @@ hbs.registerHelper('time', function(dt) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    //Temporary until we switch the door over.
-    var context;
-    statsController.getLastStatus()
-        .then(function(status){
-            context = {
-                last: status.last,
+    stateController.currentState()
+        .then(function(state){
+            var context = {
+                last: state.last,
                 title: "Is VHS Open?"
             };
-            if (status.status === "open") {
+            if (state.status === "open") {
                 context.textClass = "text-success";
                 context.status = "Open";
             } else {
                 context.status = "Closed";
             }
-            return stateController.currentState();
-        })
-        .then(function(state){
+
             if (state.openUntil && state.openUntil > moment()) {
                 context.openUntil = state.openUntil;
             }
