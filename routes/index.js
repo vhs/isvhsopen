@@ -14,31 +14,61 @@ hbs.registerHelper('fromNow', function(dt) {
     return moment().from(dt, true);
 });
 
+hbs.registerHelper('since', function(dt) {
+    var date = moment(dt);
+
+    var today = moment().set({
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0
+    });
+    if (date>today){
+        return date.format("h:mm a");
+    }
+    var yesterday = today.add(-1,'day');
+    if (date>yesterday) {
+        return date.format("[yesterday at] h:mm a");
+    }
+    var thisweek = today.add(-7,'day');
+    if (date>thisweek){
+        return date.format("dddd, h:mm a");
+    }
+    return date.format("MMMM Do, h:mm a");
+});
+
 hbs.registerHelper('time', function(dt) {
     return moment(dt).format("h:mma");
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+function statusContext(req, res, next) {
     stateController.currentState()
         .then(function(state){
-            var context = {
-                last: state.last,
-                title: "Is VHS Open?"
-            };
+            res.locals.last = state.last;
+            res.locals.title = "Is VHS Open?";
             if (state.status === "open") {
-                context.textClass = "text-success";
-                context.status = "Open";
+                res.locals.textClass = "text-success";
+                res.locals.status = "Open";
             } else {
-                context.status = "Closed";
+                res.locals.status = "Closed";
             }
 
             if (state.openUntil && state.openUntil > moment()) {
-                context.openUntil = state.openUntil;
+                res.locals.openUntil = state.openUntil;
             }
-            res.render('index', context);
+            next();
         })
         .catch(next);
+}
+
+/* GET home page. */
+router.get('/', statusContext, function(req, res) {
+    res.render('index');
+});
+
+router.get('/plain', statusContext, function(req, res) {
+    res.header('Content-Type', 'text/plain');
+    res.render('index', { layout: 'plain' });
 });
 
 statsController.setup();
