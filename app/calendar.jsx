@@ -16,7 +16,7 @@ export default class EventCalendar extends React.Component {
     }
 
     componentDidMount() {
-        var calId = "3n0o5q5ldon1dj0d3gifunmmtc%40group.calendar.google.com";
+        var calId = "3n0o5q5ldon1dj0d3gifunmmtc";
         var publicKey = "AIzaSyARGs7V5MKve8XTreHbE61amTkEX05ulBQ";
         var now = moment().startOf('day');
         var maxDate = moment().add(30, 'days');
