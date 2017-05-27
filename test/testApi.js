@@ -142,6 +142,7 @@ describe('isvhsopen api test', function () {
         //Nothing should change here
         return r
             .post("/api/status/open")
+            .send({ until: "15:30"})
             .expect(200)
             .then(function(res){
                 var untilCheck = moment().set({
