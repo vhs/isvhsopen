@@ -39,7 +39,7 @@ describe('isvhsopen stats test', function () {
     it("should write stats when vhs is open", function(done){
         this.timeout(5000);
         mockInflux(function(payload){
-            payload.should.equal('api,space=vhs,name=door value="open",duration=2');
+            payload.should.equal('api,name=door,space=vhs value="open",duration=2');
             done();
         });
         this.clock.tick(2000);
@@ -49,7 +49,7 @@ describe('isvhsopen stats test', function () {
     it("should alert slack when the space is closed", function(done){
         this.timeout(5000);
         mockInflux(function(payload){
-            payload.should.equal('api,space=vhs,name=door value="closed",duration=1');
+            payload.should.equal('api,name=door,space=vhs value="closed",duration=1');
             done();
         });
         this.clock.tick(1000);
