@@ -27,14 +27,15 @@ module.exports.setup = function() {
         state.on("change", function(event) {
             var payload = {
                 "username": "IsVHSOpenBot",
-                "text": "VHS is now <http://isvhsopen.com|" + event.newStatus + ">"
+                "text": "VHS is now <http://isvhsopen.com|" + event.newStatus + ">" + (state.openUntil ? " until " + state.openUntil.format("HH:mm") : "" )
             };
             postNotification(payload).then(function(){
                 debug("payload sent to slack:");
                 debug(payload);
             })
             .catch(function(err){
-                debug(err)
+                console.log(err);
+                debug(err);
             });
         });
     });
