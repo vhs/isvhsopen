@@ -23,7 +23,7 @@ function writeEvent(event) {
 
 function getLastStatus() {
     return new Promise(function(resolve, reject){
-        var query = "select * from api where space='vhs' and name='door' order by time desc limit 1;";
+        var query = "select * from api where space='vhs' and \"name\"='door' order by time desc limit 1;";
         _instance.query(query, function(err, results) {
             var unknown = {
                 status: "unknown",
