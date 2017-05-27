@@ -28,7 +28,7 @@ describe('isvhsopen state test', function () {
             done();
         });
         this.clock.tick(2000);
-        state.setOpen();
+        state.setOpen("20:00");
     });
 
     it("should trigger an event when closed", function(done){
