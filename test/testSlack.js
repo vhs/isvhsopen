@@ -47,4 +47,13 @@ describe('isvhsopen slack test', function () {
         });
         state.setClosed();
     });
+
+    it("should alert slack when the space is open, omitting time if not specified", function(done) {
+      this.timeout(2000);
+      mockSlack(function(payload) {
+        payload.should.have.property("text", "VHS is now <http://isvhsopen.com|open>");
+        done();
+      });
+      state.setOpen();
+    });
 });
