@@ -34,7 +34,6 @@ module.exports.setup = function() {
                 debug(payload);
             })
             .catch(function(err){
-                console.log(err);
                 debug(err);
             });
         });
