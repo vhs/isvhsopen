@@ -2,6 +2,11 @@ FROM node:boron
 
 WORKDIR /usr/src/app
 
+RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list		
+
+RUN apt-get -y update		
+RUN apt-get -y -t jessie-backports install certbot python-certbot
+
 COPY package.json /usr/src/app/
 RUN cd /usr/src/app && \
     echo "Installing dependancies, this may take a while" && \
