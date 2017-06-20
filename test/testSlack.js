@@ -31,20 +31,29 @@ describe('isvhsopen slack test', function () {
     };
 
     it("should alert slack when the space is open", function(done){
-        this.timeout(1000);
+        this.timeout(2000);
         mockSlack(function(payload){
-            payload.should.have.property("text", "VHS is now <http://isvhsopen.com|open>");
+            payload.should.have.property("text", "VHS is now <http://isvhsopen.com|open> until 20:00");
             done();
         });
-        state.setOpen();
+        state.setOpen("20:00");
     });
 
     it("should alert slack when the space is closed", function(done){
-        this.timeout(1000);
+        this.timeout(2000);
         mockSlack(function(payload){
             payload.should.have.property("text", "VHS is now <http://isvhsopen.com|closed>");
             done();
         });
         state.setClosed();
+    });
+
+    it("should alert slack when the space is open, omitting time if not specified", function(done) {
+      this.timeout(2000);
+      mockSlack(function(payload) {
+        payload.should.have.property("text", "VHS is now <http://isvhsopen.com|open>");
+        done();
+      });
+      state.setOpen();
     });
 });

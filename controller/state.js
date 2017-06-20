@@ -15,7 +15,7 @@ var untilFormat = /[0-2]?\d:\d{2}/;
 State.prototype.__proto__ = EventEmitter.prototype;
 
 State.prototype.setOpen = function(until) {
-    if (until) {
+    if (until && until !== "") {
         if (untilFormat.test(until)) {
             var hourMin = until.split(":");
             var hour = parseInt(hourMin);
@@ -29,8 +29,7 @@ State.prototype.setOpen = function(until) {
                 this.openUntil.add(1, 'day');
             }
         }
-    }
-    if (until === "") {
+    } else {
         delete this.openUntil;
     }
     return this.setStatus("open");
@@ -46,13 +45,22 @@ State.prototype.setClosed = function() {
 State.prototype.setStatus = function(newStatus) {
     if (newStatus != this.status) {
         var duration = Math.round((new Date().getTime()-this.last.getTime())/1000);
-        this.emit("change", {
-            newStatus: newStatus,
-            lastStatus: this.last,
-            duration: duration
-        });
+
         this.status = newStatus;
         this.last = new Date();
+
+        var changeEvent = {
+            newStatus: newStatus,
+            lastStatus: this.last,
+            duration: duration,
+        }
+
+        // If this is an "open" event and a time is specified, include it in the update
+        if (newStatus === "open" && moment.isMoment(this.openUntil)) {
+          changeEvent.openUntil = this.openUntil;
+        }
+
+        this.emit("change", changeEvent);
 
         return Promise.resolve(true);
     } else {
