@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list
 
 RUN apt-get -y update
-RUN apt-get -y install certbot
+RUN apt-get -y install certbot python-certbot
 
 COPY package.json /usr/src/app/
 RUN cd /usr/src/app && \
