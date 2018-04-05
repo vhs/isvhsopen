@@ -117,9 +117,13 @@ class EventDetail extends React.Component {
     render() {
         var event = this.props.event;
         var start = event.start.dateTime;
+        var end = event.end.dateTime;
         var time;
         if (start) {
             time = moment(start).format("h:mm a -");
+            if (end) {
+                time += moment(end).format(" h:mm a -");
+            }
         }
         var description = {__html:Autolinker.link(event.description).replace(/\n/g, "<br />")};
         return (
