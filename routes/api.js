@@ -12,6 +12,14 @@ router.get('/status', function(req, res, next) {
         .catch(next);
 });
 
+router.get('/googlehome', function(req, res, next) {
+    stateController.currentState()
+        .then(function(state) {
+            res.json({"fulfillmentText":"VHS is currently " + state['status'] + "."});
+        })
+        .catch(next);
+});
+
 function changeStatus(status) {
     return function(req, res, next) {
         var promise;
