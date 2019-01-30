@@ -68,5 +68,5 @@ gulp.task('sass-watch', function () {
 
 gulp.task('js', bundle(false));
 gulp.task('js-watch', bundle(true));
-gulp.task('watch', ['copy-fonts', 'sass', 'sass-watch', 'js-watch']);
-gulp.task('build', ['copy-fonts', 'sass', 'js']);
+gulp.task('watch', gulp.series('copy-fonts', 'sass', 'sass-watch', 'js-watch'));
+gulp.task('build', gulp.series('copy-fonts', 'sass', 'js'));
