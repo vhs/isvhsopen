@@ -1,6 +1,7 @@
 'use strict';
 
-var stateController = require("../controller/state.js"),
+var debug = require('debug')('isvhsopen:test:state'),
+    stateController = require("../controller/state.js"),
     sinon = require("sinon");
 
 var should = require('chai').should();
