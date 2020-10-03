@@ -6,7 +6,7 @@ var request = require("supertest-as-promised"),
     sinon = require("sinon"),
     appPromise = require("../app");
 
-require('chai').should();
+var should = require('chai').should();
 
 describe('isvhsopen api test', function () {
 
@@ -16,15 +16,15 @@ describe('isvhsopen api test', function () {
         clock = sinon.useFakeTimers(1449000000000);
         return appPromise.setup().then(function(a){
             app = a;
-            return stateController.currentState()
+            return stateController.currentState();
         })
-            .then(function(s){
-                state = s;
-                state.init({
-                    status: "closed",
-                    last: new Date()
-                })
+        .then(function(s){
+            state = s;
+            state.init({
+                status: "closed",
+                last: new Date()
             });
+        });
     });
 
     after(function(){
@@ -37,7 +37,7 @@ describe('isvhsopen api test', function () {
             .get("/api/status")
             .expect(200)
             .then(function(res) {
-                res.body.should.have.property("status", "unknown");
+                res.body.should.have.property("status", "closed");
             });
     });
 
