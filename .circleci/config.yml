@@ -19,12 +19,6 @@ jobs: # a collection of steps
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run: # set timezone
-          name: timezone
-          command: sudo cp /usr/share/zoneinfo/UTC /etc/localtime
-      - run: # run date
-          name: date
-          command: date
       - run: # run tests
           name: test
           command: npm test
