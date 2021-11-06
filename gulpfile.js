@@ -1,5 +1,5 @@
-
 'use strict';
+
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
 var watchify = require('watchify');
@@ -9,7 +9,7 @@ var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var sourcemaps = require('gulp-sourcemaps');
 var babelify = require('babelify');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('node-sass'));
 
 gulp.task('test', function () {
     return gulp.src('test/*.js', {read: false})
@@ -55,7 +55,7 @@ gulp.task('copy-fonts', function () {
 });
 
 gulp.task('sass', function () {
-    gulp.src('./public/stylesheets/**.sass')
+    return gulp.src('./public/stylesheets/**.sass')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write('./'))
