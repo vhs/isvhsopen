@@ -1,10 +1,10 @@
-'use strict'
-
 const EventEmitter = require('events').EventEmitter
 const moment = require('moment')
 const debug = require('debug')('isvhsopen:controller:state')
 
 let _current = null
+
+const untilFormat = /[0-2]?\d:\d{2}/
 
 function State () {
   this.debug = debug.extend('State')
@@ -13,11 +13,8 @@ function State () {
   this.last = new Date()
 }
 
-const untilFormat = /[0-2]?\d:\d{2}/
-
+// eslint-disable-next-line no-proto
 State.prototype.__proto__ = EventEmitter.prototype
-
-// Object.setPrototypeOf(State, Object.getPrototypeOf(EventEmitter))
 
 State.prototype.setOpen = function (until) {
   this.debug('setOpen', 'until:', until)
