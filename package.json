@@ -3,14 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "gulp": "node_modules/.bin/gulp",
     "test": "node_modules/.bin/gulp test",
-    "start": "node ./bin/www"
+    "start": "node -r dotenv/config ./bin/www"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
     "convict": "^6.2.1",
     "cookie-parser": "^1.4.5",
     "debug": "^4.3.2",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "hbs": "^4.1.2",
     "influx": "^5.9.2",
