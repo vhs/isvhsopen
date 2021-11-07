@@ -36,7 +36,7 @@ describe('isvhsopen stats test', function () {
     this.clock.restore()
   })
 
-  var mockInfluxQuery = function () {
+  const mockInfluxQuery = function () {
     return nock('http://mockinflux:8086')
       .persist()
       .get('/query')
