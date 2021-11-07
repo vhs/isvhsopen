@@ -8,8 +8,6 @@ const appPromise = require('../app')
 
 const should = require('chai').should()
 
-const futureWorkaround = (moment() > moment().set({ hour: 14, minute: 30 }))
-
 describe('isvhsopen api test', function () {
   let app, state, clock
 
@@ -103,6 +101,8 @@ describe('isvhsopen api test', function () {
   it('should update the status to open until 2:30pm then 3:30 then clear', function () {
     let lastDate
 
+    const futureWorkaround = (moment() > moment().set({ hour: 14, minute: 30 }))
+
     const r = request(app)
     const format = 'YYYY-MM-DDTHH:mm:ss.SSS[Z]'
     const untilCheck = moment().set({
@@ -155,6 +155,8 @@ describe('isvhsopen api test', function () {
   it('should clear the flag when an empty time is sent', function () {
     let lastDate
 
+    const futureWorkaround = (moment() > moment().set({ hour: 14, minute: 30 }))
+
     const r = request(app)
 
     // Nothing should change here
@@ -166,13 +168,17 @@ describe('isvhsopen api test', function () {
         const untilCheck = moment().set({
           hour: 15, minute: 30, second: 0, millisecond: 0
         })
+
         if (futureWorkaround) untilCheck.add(1, 'day')
+
         res.body.should.have.property('result', 'ok')
         res.body.should.have.property('status', 'open')
         res.body.should.have.property('last')
         res.body.should.have.property('noChanges')
         res.body.should.have.property('openUntil', untilCheck.utc().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'))
+
         lastDate = res.body.last
+
         return r
           .post('/api/status/open')
           .send({ until: '' })
