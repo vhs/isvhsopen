@@ -8,7 +8,6 @@ const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
 const gutil = require('gulp-util')
 const sourcemaps = require('gulp-sourcemaps')
-const babelify = require('babelify')
 const sass = require('gulp-sass')(require('node-sass'))
 
 gulp.task('test', function () {
