@@ -3,7 +3,7 @@
 const stateController = require('../controller/state.js')
 const sinon = require('sinon')
 
-require('chai').should()
+const should = require('chai').should()
 
 describe('isvhsopen state test', function () {
   this.timeout(5000)
