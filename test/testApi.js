@@ -6,7 +6,7 @@ const moment = require('moment')
 const sinon = require('sinon')
 const appPromise = require('../app')
 
-const should = require('chai').should()
+require('chai').should()
 
 describe('isvhsopen api test', function () {
   let app, state, clock

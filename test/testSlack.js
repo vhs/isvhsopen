@@ -1,13 +1,11 @@
 'use strict'
 
-const debug = require('debug')('isvhsopen:test:slack')
 const slack = require('../controller/slack')
 const config = require('../controller/config')
 const stateController = require('../controller/state.js')
 const nock = require('nock')
-const querystring = require('querystring')
 
-const should = require('chai').should()
+require('chai').should()
 
 describe('isvhsopen slack test', function () {
   let state

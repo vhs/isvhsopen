@@ -1,10 +1,9 @@
 'use strict'
 
-const debug = require('debug')('isvhsopen:test:state')
 const stateController = require('../controller/state.js')
 const sinon = require('sinon')
 
-const should = require('chai').should()
+require('chai').should()
 
 describe('isvhsopen state test', function () {
   this.timeout(5000)
