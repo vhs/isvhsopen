@@ -1,16 +1,22 @@
 module.exports = {
   env: {
-    commonjs: true,
-    es2021: true,
-    node: true,
-    mocha: true
+    browser: true,
+    es2021: true
   },
   extends: [
+    'plugin:react/recommended',
     'standard'
   ],
   parserOptions: {
-    ecmaVersion: 12
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
+  plugins: [
+    'react'
+  ],
   rules: {
     indent: ['error', 2],
     'space-in-parens': ['error', 'never'],
@@ -27,5 +33,6 @@ module.exports = {
       { blankLine: 'always', prev: ['block', 'block-like'], next: '*' },
       { blankLine: 'always', prev: '*', next: 'return' }
     ]
-  }
+  },
+  root: true
 }
