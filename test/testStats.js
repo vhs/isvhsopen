@@ -24,10 +24,12 @@ describe('isvhsopen stats test', function () {
     queryMock = mockInfluxQuery()
     debug('persist:', queryMock.pendingMocks())
     debug('Getting stateController')
+
     return stateController.resetState().then(function (s) {
       debug('persist:', queryMock.pendingMocks())
       state = s
       debug('Getting initialized stats controller')
+
       return stats.setup()
     })
   })

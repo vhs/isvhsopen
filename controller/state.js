@@ -92,6 +92,7 @@ module.exports.currentState = function () {
   if (!_current) {
     _current = new State()
   }
+
   return Promise.resolve(_current)
 }
 

@@ -14,8 +14,10 @@ describe('isvhsopen slack test', function () {
 
   before(function () {
     config.set('slackHookUrl', 'http://mockslack/mock/webhook')
+
     return stateController.resetState().then(function (s) {
       state = s
+
       return slack.setup()
     })
   })
@@ -25,7 +27,9 @@ describe('isvhsopen slack test', function () {
       .post('/mock/webhook')
       .reply(200, function (uri, requestBody) {
         let payload = requestBody
+
         if (typeof payload !== 'object') { payload = JSON.parse(requestBody) }
+
         cb(payload)
       })
   }

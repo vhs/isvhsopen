@@ -28,6 +28,7 @@ function changeStatus (status) {
     debug('changeStatus', 'called')
 
     let promise
+
     if (status === 'open') {
       promise = state.setOpen(req.body.until)
     } else {
@@ -41,9 +42,11 @@ function changeStatus (status) {
         last: state.last,
         openUntil: state.openUntil
       }
+
       if (!changed) {
         result.noChanges = true
       }
+
       res.json(result)
     }).catch(next)
   }
@@ -54,10 +57,12 @@ router.post('/status/closed', changeStatus('closed'))
 
 module.exports.setup = function () {
   debug('setup', 'setting up')
+
   return stateController.currentState()
     .then(function (s) {
       debug('setup', 'state:', s)
       state = s
+
       return router
     })
 }

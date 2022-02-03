@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import EventCalendar from './calendar';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import EventCalendar from './calendar'
 
-var mountNode = document.getElementById("react-calendar-mount");
+const mountNode = document.getElementById('react-calendar-mount')
 
-ReactDOM.render(<EventCalendar />, mountNode);
+ReactDOM.render(<EventCalendar />, mountNode)

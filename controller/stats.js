@@ -20,7 +20,9 @@ function writeEvent (event) {
       value: event.newStatus
     }
   }]
+
   debug('writing points:', points)
+
   return _instance.writePoints(points)
 }
 
@@ -32,7 +34,9 @@ function getLastStatus () {
 
   debug('getLastStatus', 'Getting last status')
   const query = "select * from api where space='vhs' and \"name\"='door' order by time desc limit 1;"
+
   debug('getLastStatus', 'Doing query')
+
   return _instance.query(query)
     .then(function (results) {
       debug('Getting last status query result:')
@@ -42,6 +46,7 @@ function getLastStatus () {
         debug('getLastStatus', 'Got result')
 
         const item = results[0]
+
         resultSet.status = item.value
         resultSet.last = new Date(item.time)
 
@@ -50,6 +55,7 @@ function getLastStatus () {
 
       debug('getLastStatus', 'Got unknown result')
       debug('getLastStatus', 'results:', JSON.stringify(results))
+
       return resultSet
     })
     .catch(function (err) {
@@ -68,9 +74,11 @@ module.exports.setup = function () {
     protocol: 'http',
     database: config.get('influxDb')
   }
+
   debug('setup', options)
   _instance = new Influx.InfluxDB(options)
   let state
+
   return stateController.currentState().then(function (s) {
     debug('Getting currentState')
     state = s
@@ -81,6 +89,7 @@ module.exports.setup = function () {
           debug('Wrote changes to influx')
           debug('event:', event)
           debug('data:', data)
+
           return data
         })
         .catch(function (err) {
@@ -88,6 +97,7 @@ module.exports.setup = function () {
         })
     })
     debug('Returning getLastStatus')
+
     return getLastStatus()
   })
     .then(function (last) {
