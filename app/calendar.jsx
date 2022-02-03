@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const request = require('superagent')
 const moment = require('moment')
@@ -73,11 +74,7 @@ export default class EventCalendar extends React.Component {
       return prev
     }, { sorted: [] })
 
-    const days = grouped.sorted.map(function (item) {
-      return (
-        <EventsByDay day={item} key={item.start}/>
-      )
-    })
+    const days = grouped.sorted.map((item) => (<EventsByDay day={item} key={item.start}/>))
 
     return (
       <div>
@@ -90,11 +87,8 @@ export default class EventCalendar extends React.Component {
 
 class EventsByDay extends React.Component {
   render () {
-    const events = this.props.day.items.map(function (event) {
-      return (
-        <EventDetail event={event} key={event.id}/>
-      )
-    })
+    const events = this.props.day.items.map((event) => (<EventDetail event={event} key={event.id}/>))
+
     let label = this.props.day.start.format('dddd, MMMM D')
     let classes = 'panel panel-default'
 
@@ -143,4 +137,12 @@ class EventDetail extends React.Component {
       </li>
     )
   }
+}
+
+EventsByDay.propTypes = {
+  day: PropTypes.object.isRequired
+}
+
+EventDetail.propTypes = {
+  event: PropTypes.object.isRequired
 }
