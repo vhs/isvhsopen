@@ -13,7 +13,7 @@ const slack = require('../controller/slack')
  * Normalize a port into a number, string, or false.
  */
 const normalizePort = (val) => {
-  const port = parseInt(val, 10)
+  const port = parseInt(val)
 
   if (isNaN(port)) {
   // named pipe
