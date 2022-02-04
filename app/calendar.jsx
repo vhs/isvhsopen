@@ -1,15 +1,16 @@
 'use strict'
 
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 const request = require('superagent')
 const moment = require('moment')
 const Autolinker = require('autolinker')
 
-export default class EventCalendar extends React.Component {
+export default class EventCalendar extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
       items: []
     }
