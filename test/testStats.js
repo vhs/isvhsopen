@@ -6,10 +6,8 @@ const config = require('../controller/config')
 const stateController = require('../controller/state.js')
 const nock = require('nock')
 const sinon = require('sinon')
-const http = require('http')
-const querystring = require('querystring')
 
-const should = require('chai').should()
+require('chai').should()
 
 describe('isvhsopen stats test', function () {
   let state
@@ -24,10 +22,12 @@ describe('isvhsopen stats test', function () {
     queryMock = mockInfluxQuery()
     debug('persist:', queryMock.pendingMocks())
     debug('Getting stateController')
+
     return stateController.resetState().then(function (s) {
       debug('persist:', queryMock.pendingMocks())
       state = s
       debug('Getting initialized stats controller')
+
       return stats.setup()
     })
   })

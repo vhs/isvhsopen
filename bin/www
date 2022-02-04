@@ -13,7 +13,7 @@ const slack = require('../controller/slack')
  * Normalize a port into a number, string, or false.
  */
 const normalizePort = (val) => {
-  const port = parseInt(val, 10)
+  const port = parseInt(val)
 
   if (isNaN(port)) {
   // named pipe
@@ -37,6 +37,7 @@ const onListening = (server) => {
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port
+
   debug('Listening on ' + bind)
 }
 
@@ -54,18 +55,18 @@ const onError = (error, port) => {
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges')
-      process.exit(1)
-      // eslint-disable-next-line no-unreachable
-      break
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use')
-      process.exit(1)
-      // eslint-disable-next-line no-unreachable
-      break
-    default:
-      throw error
+  case 'EACCES':
+    console.error(bind + ' requires elevated privileges')
+    process.exit(1)
+    // eslint-disable-next-line no-unreachable
+    break
+  case 'EADDRINUSE':
+    console.error(bind + ' is already in use')
+    process.exit(1)
+    // eslint-disable-next-line no-unreachable
+    break
+  default:
+    throw error
   }
 }
 
@@ -74,6 +75,7 @@ appPromise.setup().then((app) => {
  * Get port from environment and store in Express.
  */
   const port = normalizePort(process.env.PORT || '3000')
+
   app.set('port', port)
 
   /**

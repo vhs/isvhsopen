@@ -23,17 +23,23 @@ hbs.registerHelper('since', function (dt) {
     second: 0,
     millisecond: 0
   })
+
   if (date > today) {
     return date.format('h:mm a')
   }
+
   const yesterday = today.add(-1, 'day')
+
   if (date > yesterday) {
     return date.format('[yesterday at] h:mm a')
   }
+
   const thisweek = today.add(-7, 'day')
+
   if (date > thisweek) {
     return date.format('dddd, h:mm a')
   }
+
   return date.format('MMMM Do, h:mm a')
 })
 
@@ -56,6 +62,7 @@ function statusContext (req, res, next) {
       if (state.openUntil && state.openUntil > moment()) {
         res.locals.openUntil = state.openUntil
       }
+
       next()
     })
     .catch(next)

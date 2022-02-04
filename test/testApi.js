@@ -6,7 +6,7 @@ const moment = require('moment')
 const sinon = require('sinon')
 const appPromise = require('../app')
 
-const should = require('chai').should()
+require('chai').should()
 
 describe('isvhsopen api test', function () {
   let app, state, clock
@@ -16,6 +16,7 @@ describe('isvhsopen api test', function () {
 
     return appPromise.setup().then(function (a) {
       app = a
+
       return stateController.currentState()
     })
       .then(function (s) {
@@ -55,6 +56,7 @@ describe('isvhsopen api test', function () {
         res.body.should.have.property('last')
         res.body.should.not.have.property('noChanges')
         lastDate = res.body.last
+
         return r.post('/api/status/open').expect(200)
       })
       .then(function (res) {
@@ -89,6 +91,7 @@ describe('isvhsopen api test', function () {
         res.body.should.not.have.property('noChanges')
         res.body.should.not.have.property('openUntil')
         lastDate = res.body.last
+
         return r.post('/api/status/closed').expect(200)
       })
       .then(function (res) {
@@ -194,6 +197,7 @@ describe('isvhsopen api test', function () {
 
   it('should not let you set an invalid until', function () {
     const r = request(app)
+
     // Nothing should change here
     return r
       .post('/api/status/open')

@@ -8,7 +8,6 @@ const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
 const gutil = require('gulp-util')
 const sourcemaps = require('gulp-sourcemaps')
-const babelify = require('babelify')
 const sass = require('gulp-sass')(require('node-sass'))
 
 gulp.task('test', function () {
@@ -23,6 +22,7 @@ const opts = Object.assign({}, watchify.args, {
 })
 
 const b = browserify(opts)
+
 b.on('update', bundle(false)) // on any dep update, runs the bundler
 b.on('log', gutil.log) // output build logs to terminal
 b.transform('babelify', { presets: [require('babel-preset-es2015'), require('babel-preset-react')] })
@@ -30,11 +30,13 @@ b.transform('babelify', { presets: [require('babel-preset-es2015'), require('bab
 function bundle (watch) {
   return function () {
     let target
+
     if (watch) {
       target = watchify(b)
     } else {
       target = b
     }
+
     return target.bundle()
     // log errors if they happen
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))

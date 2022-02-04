@@ -1,6 +1,5 @@
 'use strict'
 
-const debug = require('debug')('isvhsopen:test:state')
 const stateController = require('../controller/state.js')
 const sinon = require('sinon')
 
@@ -12,6 +11,7 @@ describe('isvhsopen state test', function () {
 
   before(function () {
     this.clock = sinon.useFakeTimers()
+
     return stateController.resetState().then(function (s) {
       state = s
     })
