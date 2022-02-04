@@ -6,7 +6,7 @@ const watchify = require('watchify')
 const browserify = require('browserify')
 const source = require('vinyl-source-stream')
 const buffer = require('vinyl-buffer')
-const gutil = require('gulp-util')
+const logger = require('fancy-log')
 const sourcemaps = require('gulp-sourcemaps')
 const sass = require('gulp-sass')(require('node-sass'))
 
@@ -24,7 +24,7 @@ const opts = Object.assign({}, watchify.args, {
 const b = browserify(opts)
 
 b.on('update', bundle(false)) // on any dep update, runs the bundler
-b.on('log', gutil.log) // output build logs to terminal
+b.on('log', logger) // output build logs to terminal
 b.transform('babelify', { presets: [require('babel-preset-es2015'), require('babel-preset-react')] })
 
 function bundle (watch) {
@@ -39,7 +39,7 @@ function bundle (watch) {
 
     return target.bundle()
     // log errors if they happen
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .on('error', (err) => logger.error('Browserify Error:', err))
       .pipe(source('bundle.js'))
     // optional, remove if you don't need to buffer file contents
       .pipe(buffer())
