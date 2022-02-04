@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "dev": "supervisor -w app.js,app/*.jsx,bin/www,controller/*.js,routes/*.js node -r dotenv/config ./bin/www",
     "gulp": "node_modules/.bin/gulp",
     "test": "node_modules/.bin/gulp test",
     "start": "node -r dotenv/config ./bin/www"
@@ -48,6 +49,7 @@
     "sinon": "^13.0.1",
     "supertest": "^6.2.2",
     "supertest-as-promised": "^4.0.2",
+    "supervisor": "^0.12.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^2.0.0",
     "watchify": "^4.0.0"
