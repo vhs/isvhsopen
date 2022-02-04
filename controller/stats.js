@@ -76,12 +76,15 @@ module.exports.setup = function () {
   }
 
   debug('setup', options)
+
   _instance = new Influx.InfluxDB(options)
+
   let state
 
   return stateController.currentState().then(function (s) {
     debug('Getting currentState')
     state = s
+
     debug('Registering change listener')
     state.on('change', function (event) {
       writeEvent(event)
@@ -96,6 +99,7 @@ module.exports.setup = function () {
           debug(err)
         })
     })
+
     debug('Returning getLastStatus')
 
     return getLastStatus()
