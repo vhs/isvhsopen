@@ -25,7 +25,7 @@ const b = browserify(opts)
 
 b.on('update', bundle(false)) // on any dep update, runs the bundler
 b.on('log', logger) // output build logs to terminal
-b.transform('babelify', { presets: [require('babel-preset-es2015'), require('babel-preset-react')] })
+b.transform('babelify', { presets: ['@babel/preset-env', '@babel/preset-react'] })
 
 function bundle (watch) {
   return function () {

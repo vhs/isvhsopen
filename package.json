@@ -22,11 +22,11 @@
     "superagent": "^7.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "autolinker": "^3.14.3",
-    "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-react": "^6.1.18",
-    "babelify": "^8.0.0",
+    "babelify": "^10.0.0",
     "bootstrap-sass": "^3.4.1",
     "browserify": "^17.0.0",
     "chai": "^4.3.6",
