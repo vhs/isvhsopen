@@ -9,12 +9,12 @@
     "start": "node -r dotenv/config ./bin/www"
   },
   "dependencies": {
-    "body-parser": "^1.20.3",
+    "body-parser": "^1.20.4",
     "convict": "^6.2.4",
     "cookie-parser": "^1.4.7",
     "debug": "^4.3.3",
     "dotenv": "^16.0.0",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "hbs": "^4.2.0",
     "influx": "^5.9.2",
     "moment": "^2.29.4",
