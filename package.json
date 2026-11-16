@@ -9,20 +9,20 @@
     "start": "node -r dotenv/config ./bin/www"
   },
   "dependencies": {
-    "body-parser": "^1.20.4",
+    "body-parser": "^1.20.9",
     "convict": "^6.2.5",
     "cookie-parser": "^1.4.7",
     "debug": "^4.3.3",
     "dotenv": "^16.0.0",
-    "express": "^4.22.1",
-    "hbs": "^4.2.0",
+    "express": "^4.22.3",
+    "hbs": "^4.4.0",
     "influx": "^5.9.2",
-    "moment": "^2.29.4",
-    "morgan": "^1.10.1",
+    "moment": "^2.31.0",
+    "morgan": "^1.12.1",
     "superagent": "^7.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.0",
+    "@babel/core": "^7.29.13",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "autolinker": "^3.14.3",
